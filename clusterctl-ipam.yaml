@@ -1,7 +1,7 @@
 VSPHERE_USERNAME: root 
 VSPHERE_PASSWORD: 
 VSPHERE_SERVER: 192.168.1.51
-VSPHERE_DATACENTER: ''
+VSPHERE_DATACENTER:
 VSPHERE_DATASTORE: datastore1
 VSPHERE_NETWORK: LAN
 VSPHERE_RESOURCE_POOL: /ha-datacenter/host/esxi2.cikli.com/Resources 
@@ -30,3 +30,9 @@ NAMESERVER: "192.168.1.5"
 # SERVICE_DOMAIN: cluster.local
 # CLUSTER_CIDR: 100.96.0.0/11
 # SERVICE_CIDR: 100.64.0.0/13
+
+providers:
+  - name: in-cluster
+    url:  https://github.com/kubernetes-sigs/cluster-api-ipam-provider-in-cluster/releases/latest/ipam-components.yaml
+    type: IPAMProvider
+
