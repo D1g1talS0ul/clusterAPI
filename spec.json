@@ -1,0 +1,16 @@
+{
+  "DiskProvisioning": "thin",
+  "IPAllocationPolicy": "dhcpPolicy",
+  "IPProtocol": "IPv4",
+  "NetworkMapping": [
+    {
+      "Name": "nic0",
+      "Network": "LAN"
+    }
+  ],
+  "MarkAsTemplate": true,
+  "PowerOn": false,
+  "InjectOvfEnv": false,
+  "WaitForIP": false,
+  "Name": null
+}
