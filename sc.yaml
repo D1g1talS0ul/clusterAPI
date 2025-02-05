@@ -1,0 +1,8 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: vsphere-csi
+provisioner: csi.vsphere.vmware.com
+parameters:
+  datastoreurl: "ds:///vmfs/volumes/5c141711-d69290a2-5144-0002c94b1e80/"
+  storagepolicyname: "K8S-policy"

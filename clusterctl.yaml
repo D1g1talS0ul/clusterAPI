@@ -1,0 +1,38 @@
+VSPHERE_USERNAME: root 
+VSPHERE_PASSWORD: blahblahblah
+VSPHERE_SERVER: 192.168.1.51
+VSPHERE_DATACENTER:
+VSPHERE_DATASTORE: datastore1
+VSPHERE_NETWORK: LAN
+VSPHERE_RESOURCE_POOL: /ha-datacenter/host/esxi2.cikli.com/Resources 
+VSPHERE_FOLDER: /
+VSPHERE_TEMPLATE: ubuntu-2404-kube-v1.32.0 
+VSPHERE_DISK_GIB: 20
+VSPHERE_NUM_CPUS: 2
+VSPHERE_MEM_MIB: 4196
+CONTROL_PLANE_MACHINE_COUNT: 1
+WORKER_MACHINE_COUNT: 3
+CONTROL_PLANE_ENDPOINT_IP: "192.168.1.55" 
+#VIP_NETWORK_INTERFACE: eth0 
+# To find VSPHERE_TLS_THUMBPRINT use the command below
+# echo | openssl s_client -showcerts -connect 192.168.1.51:443 2> /dev/null | openssl x509 -sha256 -fingerprint 2> /dev/null | grep Fingerprint | cut -d= -f2
+VSPHERE_TLS_THUMBPRINT: 7A:04:F2:A3:9B:1E:69:5F:79:DA:27:F9:21:D9:69:D5:8A:1D:DE:45:48:EE:49:34:B1:42:6A:F6:E8:03:AF:D4
+EXP_CLUSTER_RESOURCE_SET: true 
+CLUSTER_TOPOLOGY: true 
+VSPHERE_SSH_AUTHORIZED_KEY: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDTZWWSKnSKfrW6A9XLg7hiqEudY5XTCrrsm18CTLBb/ 
+VSPHERE_STORAGE_POLICY: "" 
+CPI_IMAGE_K8S_VERSION: v1.32.0
+NODE_IPAM_POOL_NAME: capv-pool
+NODE_IPAM_POOL_API_GROUP: ipam.cluster.x-k8s.io
+NODE_IPAM_POOL_KIND: InClusterIPPool
+NAMESERVER: "192.168.1.5"
+# CLUSTER_NAME: capv
+# SERVICE_DOMAIN: cluster.local
+# CLUSTER_CIDR: 100.96.0.0/11
+# SERVICE_CIDR: 100.64.0.0/13
+
+providers:
+  - name: in-cluster
+    url: https://github.com/kubernetes-sigs/cluster-api-ipam-provider-in-cluster/releases/download/v1.0.0/ipam-components.yaml
+    type: IPAMProvider
+
