@@ -23,13 +23,18 @@ if [[ $1 == 'ova' ]]; then
 
 # Create your cloud-init YAML (user-data.yaml):
 cat > user-data.yaml << EOF
-#cloud-config
 users:
+  - default
   - name: me
+    passwd: $2
+    shell: /bin/bash
+    lock-passwd: false
+    ssh_pwauth: True
+    chpasswd: { expire: False }
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin
     ssh_authorized_keys:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHOnIDzIGmPPufF1B7B8BupYx6JqkyLtYdu5lYr5DXoh
-    sudo: ['ALL=(ALL) NOPASSWD:ALL']
-    shell: /bin/bash
 EOF
 
 # Base64-encode the cloud-init data:

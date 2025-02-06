@@ -1,2 +1,4 @@
 **/.DS_Store
 clusterctl.yaml
+user-data.yaml
+spec.json
