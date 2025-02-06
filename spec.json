@@ -8,9 +8,6 @@
       "Network": "LAN"
     }
   ],
-  "MarkAsTemplate": true,
-  "PowerOn": false,
-  "InjectOvfEnv": false,
-  "WaitForIP": false,
-  "Name": null
+  "guestinfo.userdata": "I2Nsb3VkLWNvbmZpZwp1c2VyczoKICAtIG5hbWU6IG1lCiAgICBzc2hfYXV0aG9yaXplZF9rZXlzOgogICAgICAtIHNzaC1lZDI1NTE5IEFBQUFDM056YUMxbFpESTFOVEU1QUFBQUlIT25JRHpJR21QUHVmRjFCN0I4QnVwWXg2SnFreUx0WWR1NWxZcjVEWG9oCiAgICBzdWRvOiBbJ0FMTD0oQUxMKSBOT1BBU1NXRDpBTEwnXQogICAgc2hlbGw6IC9iaW4vYmFzaAo=",
+  "guestinfo.userdata.encoding": "base64"
 }

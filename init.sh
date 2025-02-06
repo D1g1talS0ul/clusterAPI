@@ -11,9 +11,14 @@ if [[ -z "$1" || -z "$2" || -z "$3" ]]; then
   exit 1
 fi
 
-if [[ "$command" == 'init' ]]; then
+if [[ "$command" == 'init' ]] && [[ -n "${VSPHERE_USERNAME-}" ]] && [[ -n "${VSPHERE_PASSWORD-}" ]]; then
+  envsubst '$VSPHERE_USERNAME $VSPHERE_PASSWORD' < clusterctl-template.yaml > clusterctl.yaml
   #clusterctl init --infrastructure vsphere:v1.12.0 --wait-providers --target-namespace ${cluster_name} --ipam in-cluster --config clusterctl-ipam.yaml
-  clusterctl init --infrastructure vsphere:v1.12.0 --wait-providers --target-namespace ${cluster_name} --config clusterctl.yaml
+  #clusterctl init --infrastructure vsphere:v1.12.0 --wait-providers --target-namespace ${cluster_name} --config clusterctl.yaml
+else
+    echo "Error: VSPHERE_USERNAME and/or VSPHERE_PASSWORD are not set."
+    echo 'Run: export VSPHERE_USERNAME="" and/or export VSPHERE_PASSWORD=""'
+    exit 1
 fi
 
 

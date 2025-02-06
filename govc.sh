@@ -10,18 +10,48 @@ export GOVC_USERNAME='root'
 export GOVC_PASSWORD="$2"
 export GOVC_INSECURE=true
 
-if [[ $1 == 'mark' ]]
-then
+if [[ $1 == 'mark' ]]; then
   govc vm.markastemplate "ubuntu-2404-kube-v1.32.0"
 fi
 
-if [[ $1 == 'pool' ]]
-then
+if [[ $1 == 'pool' ]]; then
   govc pool.info */Resources
 fi
 
 # https://github.com/kubernetes-sigs/cluster-api-provider-vsphere?tab=readme-ov-file#kubernetes-versions-with-published-ovas
-if [[ $1 == 'ova' ]]
-then
-  govc import.ova -options=spec.json ~/Downloads/ubuntu-2404-kube-v1.32.0.ova
+if [[ $1 == 'ova' ]]; then
+
+# Create your cloud-init YAML (user-data.yaml):
+cat > user-data.yaml << EOF
+#cloud-config
+users:
+  - name: me
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHOnIDzIGmPPufF1B7B8BupYx6JqkyLtYdu5lYr5DXoh
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    shell: /bin/bash
+EOF
+
+# Base64-encode the cloud-init data:
+USER_DATA_B64=$(base64 < user-data.yaml | tr -d '\n')
+
+# Create the options JSON file (options.json):
+cat > spec.json << EOF
+{
+  "DiskProvisioning": "thin",
+  "IPAllocationPolicy": "dhcpPolicy",
+  "IPProtocol": "IPv4",
+  "NetworkMapping": [
+    {
+      "Name": "nic0",
+      "Network": "LAN"
+    }
+  ],
+  "guestinfo.userdata": "$USER_DATA_B64",
+  "guestinfo.userdata.encoding": "base64"
+}
+EOF
+
+govc import.ova -options=spec.json ~/Downloads/ubuntu-2404-kube-v1.32.0.ova
+
 fi
